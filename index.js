@@ -8,7 +8,7 @@ const instance = axios.create({
 });
 
 app.get('/', (req, res) => {
-  res.send('aw');
+  return res.send('Health check!');
 });
 
 app.get('/:lookupID', async (req, res, next) => {
@@ -55,8 +55,6 @@ app.get('/:lookupID', async (req, res, next) => {
   }
 });
 
-const port = process.env.port || 8000;
-
-app.listen(port, () => {
-  console.log('Example app listening on 8000 port!');
+app.listen(8080, () => {
+  console.log(`app listening on 8080 port!`);
 });
