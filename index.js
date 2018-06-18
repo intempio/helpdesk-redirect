@@ -7,6 +7,10 @@ const instance = axios.create({
   headers: {Authorization: 'Bearer keyF5RqI6oSraQNK7'},
 });
 
+app.get('/', (req, res) => {
+  res.send('aw');
+});
+
 app.get('/:lookupID', async (req, res, next) => {
   try {
     const {
@@ -31,6 +35,7 @@ app.get('/:lookupID', async (req, res, next) => {
         const encodedGuestName = encodeURIComponent(
           record.fields.attendee_full_name[0]
         );
+
         return res.redirect(`${acLink}?guestName=${encodedGuestName}`);
       }
 
