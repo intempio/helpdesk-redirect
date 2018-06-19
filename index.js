@@ -1,6 +1,15 @@
 const express = require('express');
 const app = express();
 const axios = require('axios');
+const Raven = require('raven');
+
+// Must configure Raven before doing anything else with it
+Raven.config(
+  'https://6b3edea6291142f9a85f6534b9906ed7@sentry.io/1228869'
+).install();
+
+// The request handler must be the first middleware on the app
+app.use(Raven.requestHandler());
 
 const instance = axios.create({
   baseURL: 'https://api.airtable.com/v0/appyYO6TiExpMlFjt',
@@ -54,6 +63,8 @@ app.get('/:lookupID', async (req, res, next) => {
     next(error);
   }
 });
+
+app.use(Raven.errorHandler());
 
 app.listen(8080, () => {
   console.log(`app listening on 8080 port!`);
